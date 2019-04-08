@@ -41,11 +41,16 @@ traveler.destiny2.getDestinyManifest().then(result => {
                 for (let item of temp) {
                     output[item.id] = JSON.parse(item.json);
                 }
+
                 
+                if (!fs.existsSync('./manifestPrettifyed')) {
+                    fs.mkdirSync('./manifestPrettifyed');
+                }
+
                 if (!fs.existsSync(path)) {
                     fs.mkdirSync(path);
                 }
-                fs.createWriteStream('./manifestPrettifyed/' + lang + '/' + name + '.json').write(JSON.stringify(output));
+                fs.createWriteStream(path + '/' + name + '.json').write(JSON.stringify(output));
             };
         })
         .catch(err => {
